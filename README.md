@@ -1,5 +1,5 @@
 # template_project
-Template for setting up a project
+Template for setting up a McStas or McXtrace instrument project
 
 ## Install with install_project notebook
 Go to the install project notebook for install instructions
