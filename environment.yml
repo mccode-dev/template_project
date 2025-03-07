@@ -1,0 +1,20 @@
+name: template_env_1
+
+channels:
+  - conda-forge
+  - scipp
+
+dependencies:
+  - h5py
+  - jupyterlab
+  - ipympl=0.9.6
+  - python-graphviz
+  - ipympl=0.
+  - scipp::plopp
+  - scipp::scipp
+  - scipy
+  - scippneutron
+  - mcstas
+  - mcstasscript
+  - pythreejs
+  - pytest
