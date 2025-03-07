@@ -62,7 +62,7 @@ def add_union(instrument, include_event_monitors=True):
 
     # Air around the sample
     add_ncrystal_union_material(instrument, "Air", "gasmix::air/25C/1.0atm/0.30relhumidity")
-    add_ncrystal_union_material(instrument, "He3", "gasmix::He3/25C/5.0atm")
+    add_ncrystal_union_material(instrument, "He3", "gasmix::He/5bar/25C/He_is_He3")
 
     # Aluminium
     Al_incoherent = instrument.add_component("Al_incoherent", "Incoherent_process")
@@ -86,25 +86,24 @@ def add_union(instrument, include_event_monitors=True):
         direction.set_ROTATED([0, angle, 0], RELATIVE="sample_position")
 
         casing = instrument.add_component("case_" + str(index), "Union_cylinder")
-        casing.set_parameters(radius=0.015, yheight=2.5, material_string='"Al"',
+        casing.set_parameters(radius=0.05, yheight=2.5, material_string='"Al"',
                               priority=10 + index)
         casing.set_AT(3.5, RELATIVE=direction)
 
-        """
         gas_name = "gas_" + str(index)
         gas = instrument.add_component(gas_name, "Union_cylinder", RELATIVE=casing)
         gas.set_parameters(radius=casing.radius - 2E-3, yheight=casing.yheight - 0.01,
                            material_string='"He3"', priority=casing.priority + 0.1)
 
-        options = f'"previous, square x bins=3 limits=[-0.03, 0.03] y bins={20}, neutron pixel min={pixel_min} t, list all neutron"'
+
+        options = f'"previous x bins=1 limits=[-0.03, 0.03] y bins={20}, neutron pixel min={pixel_min} t, list all neutron"'
         abs_logger = instrument.add_component("abs_logger_" + str(index), "Union_abs_logger_nD")
         abs_logger.set_RELATIVE(gas)
         abs_logger.set_parameters(radius=gas.radius, yheight=gas.yheight,
                                   target_geometry=f'"{gas_name}"',
                                   options=options, filename=f'"data_{index}.dat"')
-        """
 
-        pixel_min += 3*20
+        pixel_min += 1*20
 
     logger_zx = instrument.add_component("full_logger_space_zx", "Union_logger_2D_space", RELATIVE="sample_position")
     logger_zx.set_parameters(D_direction_1='"z"', D1_min=-4, D1_max=4, n1=400,
